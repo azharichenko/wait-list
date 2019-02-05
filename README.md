@@ -1,3 +1,4 @@
 # wait-list
 
-- [Our Hypothesis](HYPOTHESIS.md)
+- [Our Hypothesis](docs/HYPOTHESIS.md)
+- [Technical Challenges](docs/TECHNICAL.md)
