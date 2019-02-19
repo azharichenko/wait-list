@@ -25,12 +25,12 @@ from typing import Union, List, Dict, Any
 import requests
 from bs4 import BeautifulSoup, Tag
 
-SUBJECTS = ['ADMJ', 'ADMPS', 'AFRCNA', 'AFROTC', 'ANTH', 'ARABIC', 'ARTSC', 'ASL', 'ASTRON', 'ATHLTR', 'BACC', 'BCHS',
-            'BECN', 'BFAE', 'BFIN', 'BHRM', 'BIND', 'BIOENG', 'BIOETH', 'BIOINF', 'BIOSC', 'BIOST', 'BMIS', 'BMKT',
-            'BOAH', 'BORG', 'BQOM', 'BSEO', 'BSPP', 'BUS', 'BUSACC', 'BUSADM', 'BUSBIS', 'BUSECN', 'BUSENV', 'BUSERV',
-            'BUSFIN', 'BUSHRM', 'BUSMKT', 'BUSORG', 'BUSQOM', 'BUSSCM', 'BUSSPP', 'CDACCT', 'CDENT', 'CEE', 'CGS',
-            'CHE', 'CHEM', 'CHIN', 'CLASS', 'CLRES', 'CLST', 'CMME', 'CMMUSIC', 'CMPBIO', 'CMPINF', 'COE', 'COEA',
-            'COEE', 'COMMRC', 'CS', 'CSD', 'DENHYG', 'DENT', 'DIASCI', 'DMED', 'DSANE', 'DUPOSC', 'EAS', 'ECE', 'ECON',
+SUBJECTS = ['ADMJ', 'ADMPS', 'AFRCNA', 'AFROTC', 'ANTH', 'ARABIC', 'ARTSC', 'ASL', 'ASTRON', 'ATHLTR',
+            'BIOENG', 'BIOETH', 'BIOINF', 'BIOSC', 'BIOST', 'BMIS', 'BMKT',
+            'BOAH', 'BORG', 'BQOM', 'BSEO', 'BUSACC', 'BUSADM', 'BUSBIS', 'BUSECN', 'BUSENV', 'BUSERV',
+            'BUSFIN', 'BUSHRM', 'BUSMKT', 'BUSORG', 'BUSQOM', 'BUSSCM', 'BUSSPP', 'CDACCT', 'CEE', 'CGS',
+            'CHE', 'CHEM', 'CHIN', 'CLASS', 'CLRES', 'CLST', 'CMME', 'CMMUSIC', 'COE',
+            'COEE', 'COMMRC', 'CS', 'CSD', 'DENHYG', 'DENT', 'EAS', 'ECE', 'ECON',
             'EDUC', 'EM', 'ENDOD', 'ENGCMP', 'ENGFLM', 'ENGLIT', 'ENGR', 'ENGSCI', 'ENGWRT', 'ENRES', 'EOH', 'EPIDEM',
             'FACDEV', 'FILMG', 'FILMST', 'FP', 'FR', 'FTADMA', 'FTDA', 'FTDB', 'FTDC', 'FTDJ', 'FTDR', 'GEOL', 'GER',
             'GERON', 'GREEK', 'GREEKM', 'GSWS', 'HAA', 'HEBREW', 'HIM', 'HINDI', 'HIST', 'HONORS', 'HPA', 'HPM', 'HPS',
@@ -40,9 +40,9 @@ SUBJECTS = ['ADMJ', 'ADMPS', 'AFRCNA', 'AFROTC', 'ANTH', 'ARABIC', 'ARTSC', 'ASL
             'MSMVM', 'MSNBIO', 'MUSIC', 'NEURO', 'NPHS', 'NROSCI', 'NUR', 'NURCNS', 'NURNM', 'NURNP', 'NURSAN', 'NURSP',
             'NUTR', 'ODO', 'ORBIOL', 'ORSUR', 'OT', 'PAS', 'PEDC', 'PEDENT', 'PEDS', 'PERIO', 'PERS', 'PETE', 'PHARM',
             'PHIL', 'PHYS', 'PIA', 'POLISH', 'PORT', 'PROSTH', 'PS', 'PSY', 'PSYC', 'PSYED', 'PT', 'PUBHLT', 'PUBSRV',
-            'PWEA', 'QUECH', 'REHSCI', 'REL', 'RELGST', 'RESTD', 'RUSS', 'SA', 'SERCRO', 'SLAV', 'SLOVAK', 'SOC',
-            'SOCWRK', 'SPAN', 'STAT', 'SWAHIL', 'SWBEH', 'SWCED', 'SWCOSA', 'SWE', 'SWGEN', 'SWINT', 'SWRES', 'SWWEL',
-            'TELCOM', 'THEA', 'TURKSH', 'UKRAIN', 'URBNST', 'VIET']
+            'QUECH', 'REHSCI', 'REL', 'RELGST', 'RESTD', 'RUSS', 'SA', 'SERCRO', 'SLAV', 'SLOVAK', 'SOC',
+            'SOCWRK', 'SPAN', 'STAT', 'SWAHIL', 'SWBEH', 'SWE',
+            'THEA', 'TURKSH', 'UKRAIN', 'URBNST', 'VIET']
 
 CLASS_SEARCH_URL = 'https://psmobile.pitt.edu/app/catalog/classSearch'
 CLASS_SEARCH_API_URL = 'https://psmobile.pitt.edu/app/catalog/getClassSearch'
@@ -87,7 +87,7 @@ class PittSubject:
                                                    ))
             elif child.text != '':
                 course_description = child.text
-                course_number, course_title = course_description.split(' - ')
+                course_number, course_title, *_ = course_description.split(' - ')
                 course_number = course_number.split(' ')[1]
                 self._courses[course_number] = PittCourse(parent=self, course_number=course_number,
                                                           course_title=course_title)
@@ -194,7 +194,7 @@ class PittSection:
         days_times = self.__extract_data_past_colon(data[2])
         self.days = None
         self.times = None
-        if days_times != 'TBA':
+        if 'TBA' not in days_times:
             days_times = days_times.split(' - ')
             self.days, times = days_times[0].split(' ')
             self.days = [self.days[i * 2:(i * 2) + 2] for i in range(len(self.days) // 2)]
@@ -205,7 +205,7 @@ class PittSection:
 
         date = self.__extract_data_past_colon(data[5]).split(' - ')
         self.start_date = datetime.strptime(date[0], '%m/%d/%Y')
-        self.end_date = datetime.strptime(date[1], '%m/%d/%Y')
+        self.end_date = datetime.strptime(date[-1], '%m/%d/%Y')
 
     @property
     def term(self) -> str:
