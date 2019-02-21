@@ -8,6 +8,7 @@ name = "pypi"
 requests = "*"
 requests-futures = "*"
 lxml = "*"
+pymongo = "*"
 
 [dev-packages]
 
