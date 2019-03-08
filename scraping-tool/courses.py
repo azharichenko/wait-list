@@ -83,6 +83,7 @@ class PittSubject:
                                                    course=course,
                                                    class_data=child.text.strip().split('\n')
                                                    ))
+                course.section_numbers.append(course.sections[-1].number)
             elif child.text != '':
                 course_description = child.text
                 course_number, course_title, *_ = course_description.split(' - ')
@@ -115,6 +116,7 @@ class PittCourse:
 
         self.title = course_title
         self.number = course_number
+        self.section_numbers = []
         self.sections = []
 
     def __getitem__(self, item) -> 'PittSection':
@@ -154,7 +156,10 @@ class PittCourse:
                 self.title = course_title
 
     def to_dict(self, extra_details: bool = False) -> List[Dict[str, Any]]:
-        return [section.to_dict(extra_details=extra_details) for section in self.sections]
+        return {
+        'title': self.title,
+        'section_numbers': self.section_numbers,
+        'sections':[section.to_dict(extra_details=extra_details) for section in self.sections]}
 
     def __str__(self) -> str:
         return 'PittCourse({term}, {subject}, {number})'.format(
