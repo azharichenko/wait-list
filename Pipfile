@@ -9,6 +9,8 @@ requests = "*"
 requests-futures = "*"
 lxml = "*"
 pymongo = "*"
+google-cloud-storage = "*"
+google-cloud-bigquery = "*"
 
 [dev-packages]
 
