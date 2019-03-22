@@ -6,11 +6,11 @@ name = "pypi"
 [packages]
 "bs4" = "*"
 requests = "*"
-requests-futures = "*"
 lxml = "*"
 pymongo = "*"
 google-cloud-storage = "*"
 google-cloud-bigquery = "*"
+requests-futures = "*"
 
 [dev-packages]
 

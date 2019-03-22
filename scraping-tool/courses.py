@@ -25,22 +25,24 @@ from typing import Union, List, Dict, Any
 import requests
 from bs4 import BeautifulSoup, Tag
 
-SUBJECTS = ['ADMJ', 'ADMPS', 'AFRCNA', 'AFROTC', 'ANTH', 'ARABIC', 'ARTSC', 'ASL', 'ASTRON', 'ATHLTR',
-            'BIOENG', 'BIOSC', 'BUS', 'BUSACC', 'BUSBIS', 'BUSECN', 'BUSENV', 'BUSERV',
-            'BUSFIN', 'BUSHRM', 'BUSMKT', 'BUSORG', 'BUSQOM', 'BUSSCM', 'BUSSPP', 'CDACCT', 'CEE', 'CGS',
-            'CHE', 'CHEM', 'CHIN', 'CLASS', 'CMMUSIC', 'COE',
-            'COMMRC', 'CS', 'CSD', 'DENHYG', 'DENT', 'ECE', 'ECON',
-            'EDUC', 'EM', 'ENGCMP', 'ENGFLM', 'ENGLIT', 'ENGR', 'ENGSCI', 'ENGWRT',
-            'FILMST', 'FP', 'FR','GEOL', 'GER',
-            'GERON', 'GREEK', 'GREEKM', 'GSWS', 'HAA', 'HEBREW', 'HIM', 'HINDI', 'HIST', 'HONORS', 'HPA', 'HPS',
-            'HRS', 'IE', 'IL', 'INFSCI', 'IRISH', 'ITAL', 'JPNSE', 'JS',
-            'KOREAN', 'LATIN', 'LCTL', 'LDRSHP', 'LEGLST', 'LING', 'MATH', 'ME',
-            'MEMS', 'MILS', 'MUSIC', 'NPHS', 'NROSCI', 'NUR',
-            'NUTR', 'ORBIOL', 'PEDC', 'PERS', 'PETE',
-            'PHIL', 'PHYS', 'POLISH', 'PORT', 'PS', 'PSY', 'PSYC', 'PSYED', 'PUBSRV',
-            'QUECH', 'RELGST', 'RUSS', 'SA', 'SERCRO', 'SLAV', 'SLOVAK', 'SOC',
-            'SOCWRK', 'SPAN', 'STAT', 'SWAHIL', 'SWE',
-            'THEA', 'TURKSH', 'UKRAIN', 'URBNST', 'VIET']
+SUBJECTS = ['ADMJ', 'ADMPS', 'AFRCNA', 'AFROTC', 'ANTH', 'ARABIC', 'ARTSC', 'ASL', 'ASTRON', 'ATHLTR', 'BACC', 'BCHS',
+            'BECN', 'BFAE', 'BFIN', 'BHRM', 'BIND', 'BIOENG', 'BIOETH', 'BIOINF', 'BIOSC', 'BIOST', 'BMIS', 'BMKT',
+            'BOAH', 'BORG', 'BQOM', 'BSEO', 'BSPP', 'BUS', 'BUSACC', 'BUSADM', 'BUSBIS', 'BUSECN', 'BUSENV', 'BUSERV',
+            'BUSFIN', 'BUSHRM', 'BUSMKT', 'BUSORG', 'BUSQOM', 'BUSSCM', 'BUSSPP', 'CDACCT', 'CDENT', 'CEE', 'CGS',
+            'CHE', 'CHEM', 'CHIN', 'CLASS', 'CLRES', 'CLST', 'CMME', 'CMMUSIC', 'CMPBIO', 'CMPINF', 'COE', 'COEA',
+            'COEE', 'COMMRC', 'CS', 'CSD', 'DENHYG', 'DENT', 'DIASCI', 'DMED', 'DSANE', 'DUPOSC', 'EAS', 'ECE', 'ECON',
+            'EDUC', 'EM', 'ENDOD', 'ENGCMP', 'ENGFLM', 'ENGLIT', 'ENGR', 'ENGSCI', 'ENGWRT', 'ENRES', 'EOH', 'EPIDEM',
+            'FACDEV', 'FILMG', 'FILMST', 'FP', 'FR', 'FTADMA', 'FTDA', 'FTDB', 'FTDC', 'FTDJ', 'FTDR', 'GEOL', 'GER',
+            'GERON', 'GREEK', 'GREEKM', 'GSWS', 'HAA', 'HEBREW', 'HIM', 'HINDI', 'HIST', 'HONORS', 'HPA', 'HPM', 'HPS',
+            'HRS', 'HUGEN', 'IDM', 'IE', 'IL', 'IMB', 'INFSCI', 'INTBP', 'IRISH', 'ISB', 'ISSP', 'ITAL', 'JPNSE', 'JS',
+            'KOREAN', 'LATIN', 'LAW', 'LCTL', 'LDRSHP', 'LEGLST', 'LING', 'LIS', 'LSAP', 'MATH', 'ME', 'MED', 'MEDEDU',
+            'MEMS', 'MILS', 'MOLBPH', 'MSBMS', 'MSCBIO', 'MSCBMP', 'MSCMP', 'MSE', 'MSMBPH', 'MSMGDB', 'MSMI', 'MSMPHL',
+            'MSMVM', 'MSNBIO', 'MUSIC', 'NEURO', 'NPHS', 'NROSCI', 'NUR', 'NURCNS', 'NURNM', 'NURNP', 'NURSAN', 'NURSP',
+            'NUTR', 'ODO', 'ORBIOL', 'ORSUR', 'OT', 'PAS', 'PEDC', 'PEDENT', 'PEDS', 'PERIO', 'PERS', 'PETE', 'PHARM',
+            'PHIL', 'PHYS', 'PIA', 'POLISH', 'PORT', 'PROSTH', 'PS', 'PSY', 'PSYC', 'PSYED', 'PT', 'PUBHLT', 'PUBSRV',
+            'PWEA', 'QUECH', 'REHSCI', 'REL', 'RELGST', 'RESTD', 'RUSS', 'SA', 'SERCRO', 'SLAV', 'SLOVAK', 'SOC',
+            'SOCWRK', 'SPAN', 'STAT', 'SWAHIL', 'SWBEH', 'SWCED', 'SWCOSA', 'SWE', 'SWGEN', 'SWINT', 'SWRES', 'SWWEL',
+            'TELCOM', 'THEA', 'TURKSH', 'UKRAIN', 'URBNST', 'VIET']
 
 CLASS_SEARCH_URL = 'https://psmobile.pitt.edu/app/catalog/classSearch'
 CLASS_SEARCH_API_URL = 'https://psmobile.pitt.edu/app/catalog/getClassSearch'
@@ -63,6 +65,11 @@ class PittSubject:
 
     @property
     def courses(self):
+        """Returns a list for iterating through each course"""
+        return [v for k, v in self._courses.items()]
+
+    @property
+    def courses_names(self):
         """Return list of course numbers offered that semester"""
         return list(self._courses.keys())
 
@@ -83,10 +90,9 @@ class PittSubject:
                                                    course=course,
                                                    class_data=child.text.strip().split('\n')
                                                    ))
-                course.section_numbers.append(course.sections[-1].number)
             elif child.text != '':
                 course_description = child.text
-                course_number, course_title, *_ = course_description.split(' - ')
+                course_number, course_title = course_description.split(' - ')
                 course_number = course_number.split(' ')[1]
                 self._courses[course_number] = PittCourse(parent=self, course_number=course_number,
                                                           course_title=course_title)
@@ -116,11 +122,18 @@ class PittCourse:
 
         self.title = course_title
         self.number = course_number
-        self.section_numbers = []
         self.sections = []
 
     def __getitem__(self, item) -> 'PittSection':
         return self.sections[item]
+
+    @property
+    def section_numbers(self):
+        numbers = list()
+        for section in self.sections:
+            numbers.append(section.number)
+
+        return numbers
 
     @property
     def term(self) -> str:
@@ -155,7 +168,7 @@ class PittCourse:
                 *_, course_title = course_description.split(' - ')
                 self.title = course_title
 
-    def to_dict(self, extra_details: bool = False) -> List[Dict[str, Any]]:
+    def to_dict(self, extra_details: bool = False) -> Dict[str, Any]:
         return {
         'title': self.title,
         'section_numbers': self.section_numbers,
@@ -197,15 +210,32 @@ class PittSection:
         days_times = self.__extract_data_past_colon(data[2])
         self.days = None
         self.times = None
-        if 'TBA' not in days_times:
-            days_times = days_times.split(' - ')
-            self.days, times = days_times[0].split(' ')
-            self.days = [self.days[i * 2:(i * 2) + 2] for i in range(len(self.days) // 2)]
-            self.times = [times] + [days_times[1]]
+        if days_times != 'TBA':
+            if ',' in days_times:
+                days_times = days_times.split(', ')
+                self.days = []
+                self.times = []
+                for day_time in days_times:
+                    if 'TBA' in days_times:
+                        self.days.append('TBA')
+                        self.times.append('TBA')
+                        continue
+                    data_datetime = day_time.split(' - ')
+                    self.days.append(data_datetime[0].split(' ')[0])
+                    self.times.append([data_datetime[0].split(' ')[1], data_datetime[-1]])
+            else:
+                days_times = days_times.split(' - ')
+                self.days, times = days_times[0].split(' ')
+                self.days = [self.days[i * 2:(i * 2) + 2] for i in range(len(self.days) // 2)]
+                self.times = [times] + [days_times[1]]
 
         self.room = self.__extract_data_past_colon(data[3])
-        self.instructor = self.__extract_data_past_colon(data[4])
+        if ',' in self.room:
+            self.room = self.room.split(', ')
 
+        self.instructor = self.__extract_data_past_colon(data[4])
+        if ',' in self.instructor:
+            self.instructor = self.instructor.split(', ')
         date = self.__extract_data_past_colon(data[5]).split(' - ')
         self.start_date = datetime.strptime(date[0], '%m/%d/%Y')
         self.end_date = datetime.strptime(date[-1], '%m/%d/%Y')
@@ -380,7 +410,29 @@ def get_term_courses(term: Union[str, int], subject: str) -> PittSubject:
     subject = _validate_subject(subject)
     session, payload = _get_payload(term, subject=subject)
     response = session.post(CLASS_SEARCH_API_URL, data=payload)
+    if 'No classes found' in response.text:
+        raise ValueError("No classes found")
     container = PittSubject(subject=subject, term=term)
+    container.parse_webpage(response)
+    return container
+
+def get_term_courses_from_response(response, subject, term):
+    if 'No classes found' in response.text:
+        raise ValueError("No classes found")
+    container = PittSubject(subject=subject, term=term)
+    container.parse_webpage(response)
+    return container
+
+def get_course_sections(term: Union[str, int], subject: str, course: Union[str, int]) -> PittCourse:
+    """Return details on all sections taught in a certain course"""
+    term = _validate_term(term)
+    subject = _validate_subject(subject)
+    course = _validate_course(course)
+    session, payload = _get_payload(term, subject=subject, course=course)
+    response = session.post(CLASS_SEARCH_API_URL, data=payload)
+    if 'No classes found' in response.text:
+        raise ValueError("No classes found")
+    container = PittCourse(parent=None, course_number=course, term=term, subject=subject)
     container.parse_webpage(response)
     return container
 
@@ -392,6 +444,8 @@ def get_section_details(term: Union[str, int], section_number: Union[str, int]) 
         section_number = str(section_number)
     session, payload = _get_payload(term, section=section_number)
     response = session.post(CLASS_SEARCH_API_URL, data=payload)
+    if 'No classes found' in response.text:
+        raise ValueError("No classes found")
     container = PittSection(parent=None, course=None, class_section_url='', class_data=None, term=term)
     container.parse_webpage(response)
     return container
