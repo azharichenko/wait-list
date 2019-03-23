@@ -1,2 +1,5 @@
 scraping-tool/out/
 out/
+dataout/
+.vscode/
+section_numbers.json
