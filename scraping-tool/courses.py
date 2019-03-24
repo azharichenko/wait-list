@@ -92,7 +92,7 @@ class PittSubject:
                                                    ))
             elif child.text != '':
                 course_description = child.text
-                course_number, course_title = course_description.split(' - ')
+                course_number, course_title = course_description.split(' - ', maxsplit=1)
                 course_number = course_number.split(' ')[1]
                 self._courses[course_number] = PittCourse(parent=self, course_number=course_number,
                                                           course_title=course_title)
