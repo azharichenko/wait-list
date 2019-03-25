@@ -3,3 +3,5 @@ out/
 dataout/
 .vscode/
 section_numbers.json
+temp/
+output/

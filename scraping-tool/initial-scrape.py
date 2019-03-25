@@ -36,6 +36,8 @@ session = FuturesSession(session=token_session, max_workers=16)
 token_session.get(CLASS_SEARCH_URL)
 crsf_token = token_session.cookies['CSRFCookie']
 
+count = 0
+
 def _get_payload(term, *, subject='', course='', section='', crse_attr=''):
     """Make payload for request and generates CSRFToken for the request"""
     global crsf_token
@@ -54,7 +56,8 @@ def _get_payload(term, *, subject='', course='', section='', crse_attr=''):
 sections_numbers = []
 
 async def get_subject(subject):
-    global session
+    global session, count
+    print(subject)
     payload = _get_payload(term, subject=subject)
     future = session.post(CLASS_SEARCH_API_URL, data=payload)
     await asyncio.sleep(0)
@@ -66,7 +69,8 @@ async def get_subject(subject):
 
 
 async def get_gen_eds(attr):
-    global session
+    global session, count
+    print(attr)
     payload = _get_payload(term, crse_attr=attr)
     future = session.post(CLASS_SEARCH_API_URL, data=payload)
     await asyncio.sleep(0)
@@ -82,5 +86,10 @@ loop = asyncio.get_event_loop()
 loop.run_until_complete(asyncio.gather(*[get_subject(subject)
     for subject in SUBJECTS], *[get_gen_eds(attr) for attr in requirements]))
 
-with open('section_numbers.json', 'w') as f:
-    dump(list(set(sections_numbers)), f, indent='\t')
+sections_numbers = sorted(list(set(sections_numbers)))
+for i in range((len(sections_numbers) // 60) + 1):
+    with open('output/section_numbers.{}.json'.format(i), 'w') as f:
+        try:
+            dump(sections_numbers[60 * i: 60 * (i + 1)], f, indent='\t')
+        except:
+            dump(sections_numbers[60 * i:], f, indent='\t')    

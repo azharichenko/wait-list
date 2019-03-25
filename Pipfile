@@ -11,6 +11,7 @@ pymongo = "*"
 google-cloud-storage = "*"
 google-cloud-bigquery = "*"
 requests-futures = "*"
+requests-async = "*"
 
 [dev-packages]
 pylint = "*"
