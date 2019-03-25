@@ -1,6 +1,11 @@
+import sched, time
 from subprocess import Popen, PIPE
+s = sched.scheduler(time.time, time.sleep)
 
-process = Popen(['pipenv', 'run', 'python', './scraping-tool/downloader.py', '--path' ' ./output/section_numbers.0.json', '--gcppath', ' "initial_run/"'], stdout=PIPE, stderr=PIPE)
-stdout, stderr = process.communicate()
-print(stdout)
-print(stderr)
+def run_downloader():
+    process = Popen(['./run_downloader'], stdout=PIPE, stderr=PIPE)
+    stdout, stderr = process.communicate()
+    s.enter(15 * 60, 1, run_downloader)
+
+s.enter(15 * 60, 1, run_downloader)
+s.run()
