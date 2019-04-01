@@ -1,7 +1,3 @@
-scraping-tool/out/
-out/
-dataout/
 .vscode/
-section_numbers.json
-temp/
+out/
 output/
