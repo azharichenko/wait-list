@@ -30,6 +30,8 @@ output_dir /= term
 if not output_dir.exists():
     output_dir.mkdir()
 
+storage_client = storage.Client.from_service_account_json(
+        'service_account.json')
 
 SECTION_DETAIL_URL = 'https://psmobile.pitt.edu/app/catalog/classsection/UPITT/{term}/{section_number}'
 
@@ -39,7 +41,7 @@ with open(args.path) as f:
 async def get_section(section):
     global term
     resp = await session.get(SECTION_DETAIL_URL.format(term=term, section_number=section))
-    blob = storage.blob.Blob(gcppath + section + '.json', bucket)
+    blob = storage_client.blob.Blob(gcppath + section + '.json', bucket)
     with open(output_dir / (section + '.html'), 'w') as f:
         f.writelines(resp.text)
     with open(output_dir / (section + '.html'), 'rb') as f:
