@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser(description='Process some section data')
 parser.add_argument('--path', type=str)
 args = parser.parse_args()
 
-gcppath = datetime.now().strftime("%Y%m%d%I%M") + '/'
+gcppath = datetime.now().strftime("%Y%m%d%H%M") + '/'
 
 term = '2201'
 sections = []
