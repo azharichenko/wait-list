@@ -17,12 +17,7 @@ term = '2201'
 
 requirements = ['SCGE', 'DSGE']
 
-output_dir = Path('.') / 'out'
-
-if not output_dir.exists():
-    output_dir.mkdir()
-
-output_dir /= term
+output_dir = Path('.') / 'output'
 
 if not output_dir.exists():
     output_dir.mkdir()
@@ -88,7 +83,7 @@ loop.run_until_complete(asyncio.gather(*[get_subject(subject)
 
 sections_numbers = sorted(list(set(sections_numbers)))
 for i in range((len(sections_numbers) // 60) + 1):
-    with open('output/section_numbers.{}.json'.format(i), 'w') as f:
+    with open(output_dir / 'section_numbers.{}.json'.format(i), 'w') as f:
         try:
             dump(sections_numbers[60 * i: 60 * (i + 1)], f, indent='\t')
         except:
