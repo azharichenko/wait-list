@@ -1,4 +1,7 @@
 .vscode/
 out/
+gcp_output/
 output/
 temp/
+
+service_account.json

@@ -39,7 +39,7 @@ with open(args.path) as f:
 async def get_section(section):
     global term
     resp = await session.get(SECTION_DETAIL_URL.format(term=term, section_number=section))
-    blob = storage.blob.Blob(gcppath + section + '.json', bucket)
+    blob = storage.blob.Blob(gcppath + section + '.html', bucket)
     with open(output_dir / (section + '.html'), 'w') as f:
         f.writelines(resp.text)
     with open(output_dir / (section + '.html'), 'rb') as f:

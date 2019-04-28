@@ -12,6 +12,6 @@ def run_section_number_scraper():
     stdout, stderr = process.communicate()
     s.enter(24 * 60 * 60, 1, run_section_number_scraper)
 
-s.enter(5 * 60, 1, run_downloader)
+s.enter(1 * 60, 1, run_downloader)
 s.enter(0, 1, run_section_number_scraper)
 s.run()
