@@ -1,21 +1,21 @@
 # /usr/bin/bash
 
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.0.json &
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.1.json 
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.2.json &
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.3.json 
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.4.json &
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.5.json 
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.6.json &
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.7.json 
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.8.json &
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.9.json 
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.10.json &
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.11.json 
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.12.json &
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.13.json 
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.14.json &
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.15.json 
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.16.json &
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.17.json 
-pipenv run python ./scraping-tool/downloader.py --path ./output/section_numbers.18.json &
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.0.json &
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.1.json 
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.2.json &
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.3.json 
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.4.json &
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.5.json 
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.6.json &
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.7.json 
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.8.json &
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.9.json 
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.10.json &
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.11.json 
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.12.json &
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.13.json 
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.14.json &
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.15.json 
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.16.json &
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.17.json 
+pipenv run python ./tools/downloader.py --path ./output/section_numbers.18.json &
