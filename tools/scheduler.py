@@ -25,27 +25,33 @@ def chunks(l, n):
         yield l[i:i + n]
 
 def gather_available_files():
+    """Returns a generator for pairs of file paths to section number part files"""
     section_number_path = Path('.') / 'output'
     files = [str(file.absolute()) for file in section_number_path.glob('section_numbers.*.json')]
     return chunks(files, 2)
 
 def run_downloader():
+    """Runs downloader script with section number part files"""
     section_files_pairs = gather_available_files()
     for pair in section_files_pairs:
         temp_processes = []
         for item in pair:
             temp_processes.append(
-                Popen(['pipenv', 'run', 'python', '.tools/downloader.py' , '--path', item], stdout=PIPE, stderr=PIPE)
+                Popen(['pipenv', 'run', 'python', './tools/downloader.py' , '--path', item], stdout=PIPE, stderr=PIPE)
             )
         for p in temp_processes:
             p.wait()
     s.enter(60 * 60, 1, run_downloader)
 
 def run_section_number_scraper():
+    """Runs fetch setcion numbers script
+    This is done in case a section is either dropped or a new section has been formed
+    """
     process = Popen(['pipenv', 'run', 'python', './fetch-section-numbers'], stdout=PIPE, stderr=PIPE)
-    stdout, stderr = process.communicate()
+    process.wait()
     s.enter(24 * 60 * 60, 1, run_section_number_scraper)
 
-s.enter(1 * 60, 1, run_downloader)
+# Start off section number scraper, then start downloader loop
 s.enter(0, 1, run_section_number_scraper)
+s.enter(5 * 60, 1, run_downloader)
 s.run()
