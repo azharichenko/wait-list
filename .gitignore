@@ -1,12 +1,4 @@
 .vscode/
 out/
-<<<<<<< HEAD
 output/
 data/
-=======
-gcp_output/
-output/
-temp/
-
-service_account.json
->>>>>>> d0337fd7c958991bc34dda540acc92e1a630646d
