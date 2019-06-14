@@ -20,7 +20,12 @@ output_dir = Path('.') / 'data'
 if not output_dir.exists():
     output_dir.mkdir()
 
-output_dir = output_dir / term / datetime.now().strftime("%Y%m%d%I%M")
+output_dir = output_dir / term 
+
+if not output_dir.exists():
+    output_dir.mkdir()
+
+output_dir = output_dir / datetime.now().strftime("%Y%m%d%I%M")
 
 if not output_dir.exists():
     output_dir.mkdir()
